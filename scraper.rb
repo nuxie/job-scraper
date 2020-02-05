@@ -3,6 +3,7 @@ require 'Faraday'
 require 'byebug'
 require 'watir'
 require 'watir-scroll'
+require 'csv'
 
 def bulldog_scraper
     url = "https://bulldogjob.pl/companies/jobs"
@@ -67,5 +68,11 @@ def justjoin_scraper
     return jobs
 end
 
-bulldog_scraper
-justjoin_scraper
+all_offers = bulldog_scraper + justjoin_scraper
+
+CSV.open("./job_offers.csv", "wb") do |csv|
+    csv << all_offers_filtered.first.keys
+    all_offers_filtered.each do |offer|
+        csv << offer.values
+    end
+end
