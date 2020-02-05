@@ -1,10 +1,11 @@
 require 'Nokogiri'
-require 'HTTParty'
+require 'Faraday'
 require 'byebug'
 
 def bulldog_scraper
     url = "https://bulldogjob.pl/companies/jobs"
-    unparsed_page = HTTParty.get(url)
+    conn = Faraday.new
+    unparsed_page = conn.get url
     parsed_page = Nokogiri::HTML(unparsed_page)
     job_offers = parsed_page.css('ul.results-list li')
     job_offers.each do |job_offer|
