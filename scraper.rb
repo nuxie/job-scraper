@@ -38,7 +38,8 @@ end
 def justjoin_scraper
     browser = Watir::Browser.new :chrome, headless: true
     browser.goto("https://justjoin.it/")
-    browser.scroll.to :bottom
+    offers_list = browser.element(css: 'ul.offers-list')
+    offers_list.scroll.to :bottom
 end
 
 bulldog_scraper
