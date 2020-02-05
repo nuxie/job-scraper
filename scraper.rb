@@ -38,8 +38,15 @@ end
 def justjoin_scraper
     browser = Watir::Browser.new :chrome, headless: true
     browser.goto("https://justjoin.it/")
-    offers_list = browser.element(css: 'ul.offers-list')
-    offers_list.scroll.to :bottom
+    last_offer_age = ""
+    age_days = 1
+    while last_offer_age.to_i < age_days
+        offers_list = browser.element(css: 'ul.offers-list')
+        offers_list.scroll.to :bottom
+        offers = offers_list.elements(css: 'li.offer-item')
+        last_offer_age = offers.last.element(css: 'span.age').text.chr
+        last_offer_age = 0 if last_offer_age == "N"
+    end
 end
 
 bulldog_scraper
