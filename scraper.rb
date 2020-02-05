@@ -49,11 +49,17 @@ def justjoin_scraper
     end
     jobs = Array.new
     offers.each do |job_offer|
+        tags_arr = []
+        tag_elements = job_offer.elements(css: 'span.tag').to_a
+        tag_elements.each do |tag_element|
+            tags_arr << tag_element.inner_text
+        end
         job = {
             title: job_offer.span(class: 'title').text,
             location: job_offer.span(class: 'company-address').text.split.last,
             company: job_offer.span(class: 'company-name').text[2..-1],
             salary: job_offer.span(class: 'salary-row').text,
+            tags: tags_arr.join(', '),
             url: job_offer.a.href
         }
         jobs << job if job[:title] != "" && job_offer.element(css: 'span.age').text.chr.to_i < age_days
