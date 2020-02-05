@@ -8,6 +8,7 @@ def bulldog_scraper
     unparsed_page = conn.get url
     parsed_page = Nokogiri::HTML(unparsed_page)
     job_offers = parsed_page.css('ul.results-list li')
+    jobs = Array.new
     job_offers.each do |job_offer|
         job = {
             title: job_offer.css('h2.result-header').text.strip,
@@ -17,7 +18,9 @@ def bulldog_scraper
             tags: job_offer.css('div.result-desc li.tags-item').text.split(/\n+/).join(" "),
             url: job_offer.css('a')[0].attributes['href'].value
         }
+        jobs << job if job[:title] != ""
     end
+    return jobs
 end
 
 bulldog_scraper
