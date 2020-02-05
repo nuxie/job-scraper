@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
 
-gem 'HTTParty'
+gem 'Faraday'
 gem 'nokogiri'
 gem 'byebug'
