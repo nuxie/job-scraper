@@ -34,4 +34,11 @@ def bulldog_scraper
     return jobs
 end
 
+
+def justjoin_scraper
+    browser = Watir::Browser.new :chrome, headless: true
+    browser.goto("https://justjoin.it/")
+    browser.scroll.to :bottom
+end
+
 bulldog_scraper
