@@ -47,6 +47,12 @@ def justjoin_scraper
         last_offer_age = offers.last.element(css: 'span.age').text.chr
         last_offer_age = 0 if last_offer_age == "N"
     end
+    offers.each do |job_offer|
+        job = title: job_offer.span(class: 'title').text
+        jobs << job if job[:title] != "" && job_offer.element(css: 'span.age').text.chr.to_i < age_days
+    end
+    return jobs
 end
 
 bulldog_scraper
+justjoin_scraper
