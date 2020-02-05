@@ -1,6 +1,8 @@
 require 'Nokogiri'
 require 'Faraday'
 require 'byebug'
+require 'watir'
+require 'watir-scroll'
 
 def bulldog_scraper
     url = "https://bulldogjob.pl/companies/jobs"
